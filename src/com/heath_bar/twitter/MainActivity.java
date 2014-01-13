@@ -3,6 +3,7 @@ package com.heath_bar.twitter;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -23,6 +24,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
@@ -41,7 +43,18 @@ public class MainActivity extends Activity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    Button btn_bearer_token = (Button)findViewById(R.id.btn_bearer_token); // Get "Bearer Token" Button
+    final ArrayList<Tweet> tweets = new ArrayList<Tweet>();
+    final ListView myListView = (ListView) findViewById(R.id.listTweets);
+    final tweetsAdapter myTweetsAdapter = new tweetsAdapter(this, R.layout.tweet, tweets);
+    myListView.setAdapter(myTweetsAdapter);
+    
+    Tweet new_entry = new Tweet ("kabooga");
+    tweets.add(0, new_entry);
+    myTweetsAdapter.notifyDataSetChanged();
+    
+    
+    // "Get Bearer Token" Button
+    Button btn_bearer_token = (Button)findViewById(R.id.btn_bearer_token);
     btn_bearer_token.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
@@ -49,6 +62,7 @@ public class MainActivity extends Activity {
       }
     });
     
+    // "Get Feed" Token
     Button btn_get_feed = (Button)findViewById(R.id.btn_get_feed);
     btn_get_feed.setOnClickListener(new OnClickListener() {
 
