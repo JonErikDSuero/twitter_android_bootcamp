@@ -8,10 +8,14 @@ public class Tweet {
     //   the user who tweeted
     //   profile picture
 	
+    public String text;
     public String created_at;
+    public String user_name;
 
-    public Tweet (String created_at) {
+    public Tweet (String text, String created_at, String user_name) {
+        this.text = text;
         this.created_at = created_at;
+        this.user_name = user_name;
     }
         
 }

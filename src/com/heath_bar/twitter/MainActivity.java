@@ -27,10 +27,12 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.heath_bar.twitter.tweetsAdapter;
+
 public class MainActivity extends Activity {
 
   // final String URL = "https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=twitterapi&include_rts=1";
-  final String URL = "https://api.twitter.com/1.1/search/tweets.json?q=mobiledev&count=2";
+  final String URL = "https://api.twitter.com/1.1/search/tweets.json?q=mobiledev&count=15";
   final String APIKEY = "64BfTDfttvcFO5TnbxE1Q";
   final String APISECRET = "rsxPcW3uFAnGNgiZvY5QnfiId6GY0VMXeyPofSlXtg";
   
@@ -42,15 +44,6 @@ public class MainActivity extends Activity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-
-    final ArrayList<Tweet> tweets = new ArrayList<Tweet>();
-    final ListView myListView = (ListView) findViewById(R.id.listTweets);
-    final tweetsAdapter myTweetsAdapter = new tweetsAdapter(this, R.layout.tweet, tweets);
-    myListView.setAdapter(myTweetsAdapter);
-    
-    Tweet new_entry = new Tweet ("kabooga");
-    tweets.add(0, new_entry);
-    myTweetsAdapter.notifyDataSetChanged();
     
     
     // "Get Bearer Token" Button
@@ -192,30 +185,28 @@ public class MainActivity extends Activity {
 
       try {
 
+        final ArrayList<Tweet> tweets = new ArrayList<Tweet>();
+        final ListView myListView = (ListView) findViewById(R.id.listTweets);
+        final tweetsAdapter myTweetsAdapter = new tweetsAdapter(MainActivity.this, R.layout.tweet, tweets);
+        myListView.setAdapter(myTweetsAdapter);
+
         JSONArray statuses = null;
         JSONObject status = null;
-        String created_at = null;
         int i;
-        
-        TextView txt = (TextView)findViewById(R.id.txt_feed);
-        JSONObject json_feed = new JSONObject(jsonText);
-        // Log.d("Feed", root);
-        statuses = json_feed.getJSONArray("statuses");
 
-        // txt.setText(jsonText); // outputs the JSON file
-        
-        // Each tweet should include information such as:
-        //   the tweet content,
-        //   the creation time,
-        //   the user who tweeted
-        //   profile picture
+        JSONObject json_feed = new JSONObject(jsonText);
+        statuses = json_feed.getJSONArray("statuses");
         
         for (i=0; i<statuses.length(); i++) {
           status = statuses.getJSONObject(i);
-          created_at = status.getString("created_at");
+          Tweet new_entry = new Tweet (
+        		  status.getString("text"),
+        		  status.getString("created_at"),
+        		  status.getJSONObject("user").getString("name")
+        		  );
+          tweets.add(0, new_entry);
+          myTweetsAdapter.notifyDataSetChanged();
         }
-        txt.setText(created_at);
-        
 
 
       }catch (Exception e){

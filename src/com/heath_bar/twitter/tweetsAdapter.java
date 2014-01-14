@@ -1,7 +1,6 @@
 package com.heath_bar.twitter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,8 +28,12 @@ public class tweetsAdapter extends ArrayAdapter<Tweet> {
     public View getView(final int position, View convertView, ViewGroup parent) {
         convertView = this.myInflater.inflate(layoutResourceId, null);
         Tweet tweet = arrList.get(position);
-        TextView nameText = (TextView) convertView.findViewById(R.id.itemName);
-        nameText.setText(tweet.created_at);
+        TextView tv_text = (TextView) convertView.findViewById(R.id.Text);
+        TextView tv_created_at = (TextView) convertView.findViewById(R.id.CreatedAt);
+        TextView tv_user_name = (TextView) convertView.findViewById(R.id.UserName);
+        tv_text.setText(tweet.text);
+        tv_created_at.setText(tweet.created_at);
+        tv_user_name.setText(tweet.user_name);
         
         Button deleteButton = (Button) convertView.findViewById(R.id.deleteButton);
         deleteButton.setOnClickListener(new View.OnClickListener() {
