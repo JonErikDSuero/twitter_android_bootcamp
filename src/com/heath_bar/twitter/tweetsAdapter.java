@@ -6,8 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.heath_bar.twitter.Tweet;
+import com.heath_bar.twitter.DownloadImageTask;
 
 import java.util.ArrayList;
 
@@ -27,6 +29,7 @@ public class tweetsAdapter extends ArrayAdapter<Tweet> {
 
     public View getView(final int position, View convertView, ViewGroup parent) {
         convertView = this.myInflater.inflate(layoutResourceId, null);
+        
         Tweet tweet = arrList.get(position);
         TextView tv_text = (TextView) convertView.findViewById(R.id.Text);
         TextView tv_created_at = (TextView) convertView.findViewById(R.id.CreatedAt);
@@ -34,6 +37,8 @@ public class tweetsAdapter extends ArrayAdapter<Tweet> {
         tv_text.setText(tweet.text);
         tv_created_at.setText(tweet.created_at);
         tv_user_name.setText(tweet.user_name);
+        
+        new DownloadImageTask((ImageView) convertView.findViewById(R.id.UserProfileImage)).execute(tweet.user_profile_image_url);
         
         Button deleteButton = (Button) convertView.findViewById(R.id.deleteButton);
         deleteButton.setOnClickListener(new View.OnClickListener() {

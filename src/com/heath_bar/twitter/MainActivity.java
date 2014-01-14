@@ -45,7 +45,6 @@ public class MainActivity extends Activity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     
-    
     // "Get Bearer Token" Button
     Button btn_bearer_token = (Button)findViewById(R.id.btn_bearer_token);
     btn_bearer_token.setOnClickListener(new OnClickListener() {
@@ -202,7 +201,8 @@ public class MainActivity extends Activity {
           Tweet new_entry = new Tweet (
         		  status.getString("text"),
         		  status.getString("created_at"),
-        		  status.getJSONObject("user").getString("name")
+        		  status.getJSONObject("user").getString("name"),
+        		  status.getJSONObject("user").getString("profile_image_url")
         		  );
           tweets.add(0, new_entry);
           myTweetsAdapter.notifyDataSetChanged();

@@ -26,11 +26,12 @@ public final class R {
     public static final class id {
         public static final int CreatedAt=0x7f080005;
         public static final int Text=0x7f080004;
-        public static final int UserName=0x7f080006;
-        public static final int action_settings=0x7f080008;
+        public static final int UserName=0x7f080007;
+        public static final int UserProfileImage=0x7f080006;
+        public static final int action_settings=0x7f080009;
         public static final int btn_bearer_token=0x7f080000;
         public static final int btn_get_feed=0x7f080002;
-        public static final int deleteButton=0x7f080007;
+        public static final int deleteButton=0x7f080008;
         public static final int listTweets=0x7f080003;
         public static final int txt_bearer_token=0x7f080001;
     }
